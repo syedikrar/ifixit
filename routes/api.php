@@ -1,0 +1,25 @@
+<?php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::post('/admin/category/save','Admin\CategoryController@index');
+Route::get('/admin/category/parent','Admin\CategoryController@parent');
+Route::get('/admin/category/all','Admin\CategoryController@all');
+Route::get('/admin/category/{id}','Admin\CategoryController@getCategory');
+Route::patch('/admin/category/update/{id}','Admin\CategoryController@update');
