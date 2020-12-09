@@ -18,75 +18,10 @@
                 :search="search"
             >
                <template v-slot:item.action="{ item }">
-                  
-                  <v-row justify="center">
-      <v-dialog
-        v-model="dialog"
-        persistent
-        max-width="600px"
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            color="primary"
-            dark
-            v-bind="attrs"
-            v-on="on"
-            @click="editcategory(item.id)"
-          >
-            Edit
-          </v-btn>
-        </template>
-        <v-card>
-          <v-card-title>
-            <span class="headline">Edit category</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col
-                  cols="12"
-                  sm="12"
-                  md="12"
-                >
-                  <v-text-field
-                    label="title"
-                    required
-                    v-model="title"
-                  ></v-text-field>
-                </v-col>
-                
-              </v-row>
-            </v-container>
-            
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="dialog = false"
-            >
-              Close
-            </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="updateCategory(item.id)"
-            >
-              Save
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-row>
-                  
-                  
-                  
-                  
-                   <v-btn class="mr-2 primary">
+                  <v-btn class="mr-2 primary" :to="'/admin/editcategory/'+item.id">
                        <v-icon small>mdi-lead-pencil</v-icon>Edit
                    </v-btn>
-                   <v-btn class="mr-2 error">
+                   <v-btn class="mr-2 error" @click="deletecategory(item.id)"> 
                         <v-icon small>mdi-delete-outline</v-icon>Delete   
                     </v-btn> 
                </template>
@@ -138,6 +73,7 @@ methods: {
         });
     },
     editcategory(categoryid){
+        alert(categoryid);
         let self = this;
         
         axios.get('/api/admin/category/'+ categoryid).then(function (response){
@@ -148,12 +84,24 @@ methods: {
         });
     },
     updateCategory(categoryid){
+        alert(categoryid);
         let self = this;
         self.busy = true;
         axios.patch('/api/admin/category/update/'+ categoryid, {title:self.title}).then(function (response){
             console.log(response);
         });
+    },
+    deletecategory(id){
+       let self = this;
+       self.busy = true;
+       axios.delete('/api/admin/deletecategory/'+id).then(function (response){
+           self.initialize();
+       })
+       .finally(function (response){
+           self.busy = false;
+       });
     }
+
 }
 }
 </script>

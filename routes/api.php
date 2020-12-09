@@ -23,3 +23,4 @@ Route::get('/admin/category/parent','Admin\CategoryController@parent');
 Route::get('/admin/category/all','Admin\CategoryController@all');
 Route::get('/admin/category/{id}','Admin\CategoryController@getCategory');
 Route::patch('/admin/category/update/{id}','Admin\CategoryController@update');
+Route::delete('/admin/deletecategory/{id}','Admin\CategoryController@destroy');
