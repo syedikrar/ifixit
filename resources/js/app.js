@@ -39,6 +39,7 @@ Vue.component('dashboard', require('./components/admin/dashboard.vue').default);
 import dashboard from './components/admin/dashboard';
 import about from './components/admin/about';
 import categories from "./components/admin/categories";
+import editcategory from "./components/admin/editcategory";
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -52,7 +53,9 @@ import categories from "./components/admin/categories";
 const routes = [
     { path: '/admin/dashboard', component: dashboard },
     { path:'/admin/about', component: about },
-    { path:'/admin/categories', component: categories }
+    { path:'/admin/categories', component: categories },
+    { path:'/admin/editcategory/:id', component: editcategory },
+    
   ]
 
   const router = new VueRouter({

@@ -49,14 +49,24 @@ class CategoryController extends Controller
 
     public function update($id,Request $request)
     {
-        dd($id);
+        
         $category = Category::find($id);
-        dd($category);
+        
         $category->title = $request->title;
         $category = $category->save();
         return response()->json([
             'status' => true,
             'data'   => $category
         ]);
+    }
+
+    public function destroy($id)
+    {
+       $category = Category::find($id);
+       $category = $category->delete();
+       return response()->json([
+        'status' => true,
+        'data'  => $category
+       ]);
     }
 }
