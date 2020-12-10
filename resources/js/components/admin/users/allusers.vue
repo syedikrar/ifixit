@@ -196,9 +196,19 @@
       },
 
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
+        let self = this;
+        const index = this.desserts.indexOf(item);
+        self.busy = true;
+        if(item.id != null){
+          axios.delete('/api/admin/user/delete/'+ item.id).then(function (response){
+            self.busy = false;
+            self.desserts.splice(index, 1);
+          });
+        }
+        else {
+          self.busy = false
+          self.categories.splice(index, 1)
+      }
       },
 
       deleteItemConfirm () {
@@ -225,7 +235,7 @@
       save () {
         if (this.editedIndex > -1) {
           Object.assign(this.desserts[this.editedIndex], this.editedItem)
-          axios.post('/api/admin/user/save',{name:this.editedItem.name,email:this.editedItem.email,password:this.editedItem.password})
+          axios.patch('/api/admin/user/update/'+ this.editedItem.id,{name:this.editedItem.name,email:this.editedItem.email,password:this.editedItem.password})
                     .then(function (response){
                         console.log(response);
                     });

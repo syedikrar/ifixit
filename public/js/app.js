@@ -2491,9 +2491,19 @@ __webpack_require__.r(__webpack_exports__);
       this.dialog = true;
     },
     deleteItem: function deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialogDelete = true;
+      var self = this;
+      var index = this.desserts.indexOf(item);
+      self.busy = true;
+
+      if (item.id != null) {
+        axios["delete"]('/api/admin/user/delete/' + item.id).then(function (response) {
+          self.busy = false;
+          self.desserts.splice(index, 1);
+        });
+      } else {
+        self.busy = false;
+        self.categories.splice(index, 1);
+      }
     },
     deleteItemConfirm: function deleteItemConfirm() {
       this.desserts.splice(this.editedIndex, 1);
@@ -2520,7 +2530,7 @@ __webpack_require__.r(__webpack_exports__);
     save: function save() {
       if (this.editedIndex > -1) {
         Object.assign(this.desserts[this.editedIndex], this.editedItem);
-        axios.post('/api/admin/user/save', {
+        axios.patch('/api/admin/user/update/' + this.editedItem.id, {
           name: this.editedItem.name,
           email: this.editedItem.email,
           password: this.editedItem.password
