@@ -42,6 +42,7 @@ import categories from "./components/admin/categories";
 import editcategory from "./components/admin/editcategory";
 import allusers from "./components/admin/users/allusers";
 import addlaptop from './components/admin/products/addlaptop';
+import guide from './components/admin/guide';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -59,6 +60,7 @@ const routes = [
     { path:'/admin/editcategory/:id', component: editcategory },
     { path:'/admin/allusers', component: allusers },
     { path:'/admin/addlaptop', component: addlaptop },
+    { path:'/admin/guide', component: guide },
   ]
 
   const router = new VueRouter({
