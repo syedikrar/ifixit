@@ -28,4 +28,6 @@ Route::delete('/admin/deletecategory/{id}','Admin\CategoryController@destroy');
 Route::prefix('admin')->group(function (){
     Route::get('/allusers','Admin\UserController@allusers');
     Route::post('/user/save','Admin\UserController@save');
+    Route::patch('/user/update/{id}','Admin\UserController@update');
+    Route::delete('/user/delete/{id}','Admin\UserController@destroy');
 });

@@ -38,4 +38,28 @@ class UserController extends Controller
             'data'      => $user
         ]);
     }
+
+    public function update(Request $request,$id)
+    {
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user = $user->save();
+
+        return response()->json([
+            'status'    => true,
+            'data'      => $user
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        $user = $user->delete();
+
+        return response()->json([
+            'status'    => true,
+            'data'      => $user
+        ]);
+    }
 }
