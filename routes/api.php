@@ -24,3 +24,8 @@ Route::get('/admin/category/all','Admin\CategoryController@all');
 Route::get('/admin/category/{id}','Admin\CategoryController@getCategory');
 Route::patch('/admin/category/update/{id}','Admin\CategoryController@update');
 Route::delete('/admin/deletecategory/{id}','Admin\CategoryController@destroy');
+
+Route::prefix('admin')->group(function (){
+    Route::get('/allusers','Admin\UserController@allusers');
+    Route::post('/user/save','Admin\UserController@save');
+});
